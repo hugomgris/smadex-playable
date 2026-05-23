@@ -1,4 +1,4 @@
-# RAID: Shadow Legends — Playable Ad
+# RAID: Shadow Legends - Playable Ad
 ### Smadex Creative Studio Technical Assessment
 
 A self-contained HTML5 playable ad built with TypeScript and PixiJS.
