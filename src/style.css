@@ -1,0 +1,119 @@
+/* ── Reset & base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --raid-gold:    #fbbf24;
+  --raid-orange:  #f97316;
+  --raid-deep:    #05080f;
+  --raid-purple:  #7c3aed;
+  --raid-cyan:    #38bdf8;
+  --font-display: Georgia, 'Times New Roman', serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--raid-deep);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Canvas wrapper ────────────────────────────────────────────────────────── */
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 812px;
+  overflow: hidden;
+  transform-origin: top left;
+}
+
+/* Scale the entire app to fit the viewport on mobile */
+@media (max-width: 390px) {
+  #app {
+    transform-origin: top center;
+    transform: scale(calc(100vw / 375));
+    width: 375px;
+    height: 667px;
+  }
+}
+
+/* ── CTA button (DOM element, sits over canvas) ────────────────────────────── */
+#cta {
+  position: absolute;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 58px;
+
+  background: linear-gradient(180deg, #f97316 0%, #c2410c 100%);
+  border: 2px solid #fbbf24;
+  border-radius: 6px;
+  box-shadow:
+    0 0 24px rgba(249, 115, 22, 0.7),
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+
+  cursor: pointer;
+  z-index: 100;
+
+  /* Animated shimmer */
+  overflow: hidden;
+}
+
+#cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+#cta:active {
+  transform: translateX(-50%) scale(0.97);
+  box-shadow:
+    0 0 12px rgba(249, 115, 22, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* Hidden state */
+#cta[hidden] {
+  display: none;
+}
+
+/* ── Canvas fills #app exactly ─────────────────────────────────────────────── */
+#app canvas {
+  display: block;
+  width: 375px !important;
+  height: 812px !important;
+  touch-action: none;
+}
